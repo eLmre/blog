@@ -72,9 +72,7 @@
                                         <a class="dropdown-item" href="{{ url('/manager') }}">Управление</a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выйти</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

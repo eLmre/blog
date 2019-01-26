@@ -3,9 +3,9 @@
         <div class="card-body">
             <a href="{{ route('article', ['slug' => $article->slug]) }}" class="card-title"><h3>{{ $article->title }}</h3></a>
             @foreach($article->categories as $category)
-                <span class="card-subtitle mb-3 text-muted">{{ $category->title }}</span>@if(!$loop->last), @endif
+                <a href="{{ route('category', ['slug' => $category->slug]) }}" class="card-subtitle mb-3 text-muted">{{ $category->title }}</a>@if(!$loop->last),@endif
             @endforeach
-            <p class="card-text">{{ mb_substr($article->description, 0, 40) }}</p>
+            <p class="card-text">{{ str_limit(strip_tags($article->description), 150) }}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                     <a href="{{ route('article', ['slug' => $article->slug]) }}" class="btn btn-sm btn-outline-secondary">Просмотр</a>

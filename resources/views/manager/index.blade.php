@@ -28,7 +28,7 @@
                                         <span class="badge badge-secondary">Неактивен</span>
                                     @endif
                                 </td>
-                                <td class="text-right">
+                                <td class="text-right" width="200">
                                     <form onsubmit="if(confirm('Удалить?')){ return true } else { return false }" action="{{ route('manager.article.destroy', $article) }}" method="post">
                                         <input type="hidden" name="_method" value="DELETE">
                                         {{ csrf_field() }}
@@ -75,7 +75,7 @@
                                         <span class="badge badge-secondary">Неактивен</span>
                                     @endif
                                 </td>
-                                <td class="text-right">
+                                <td class="text-right" width="200">
                                     <form onsubmit="if(confirm('Удалить?')){ return true } else { return false }" action="{{ route('manager.category.destroy', $category) }}" method="post">
                                         <input type="hidden" name="_method" value="DELETE">
                                         {{ csrf_field() }}

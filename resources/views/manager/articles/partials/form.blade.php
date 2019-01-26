@@ -22,7 +22,7 @@
 
     <div class="col-md-12 mb-4">
         <label for="description">Содержание</label>
-        <textarea class="form-control" id="description" name="description">{{ $article->description ?? '' }}</textarea>
+        <textarea id="ckeditor" class="form-control" id="description" name="description">{{ $article->description ?? '' }}</textarea>
     </div>
 </div>
 
