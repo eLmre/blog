@@ -11,6 +11,11 @@ class Category extends Model
 
     protected $fillable = ['title', 'slug', 'published'];
 
+    /**
+     * @param $query
+     * @param $count
+     * @return mixed
+     */
     public function scopeLastCategories($query, $count)
     {
       return $query->orderBy('created_at', 'desc')->take($count)->get();

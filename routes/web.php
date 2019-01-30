@@ -17,7 +17,7 @@ Route::get('/', 'PublicController@index')->name('home');
 Route::get('/category/{slug}', 'PublicController@category')->name('category');
 Route::get('/article/{slug}', 'PublicController@article')->name('article');
 
-Route::group(['prefix' => 'manager', 'namespace' => 'Manager', 'middleware' => ['manager']], function() {
+Route::group(['prefix' => 'manager', 'namespace' => 'Manager', 'middleware' => ['auth'] ], function() {
     Route::get('/', 'ManagerController@manager')->name('manager.index');
     Route::resource('/category', 'CategoryController', ['as' => 'manager']);
     Route::resource('/article', 'ArticleController', ['as' => 'manager']);

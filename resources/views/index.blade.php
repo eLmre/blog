@@ -9,13 +9,13 @@
                         <label for="">Категория</label>
                         <select class="form-control select2" name="categories[]" multiple="">
                             @foreach(\App\Category::where('published', 1)->get() as $category)
-                                <option value="{{ $category->id }}" @if(isset($selected_categories) && in_array($category->id, $selected_categories)) selected @endif>{{ $category->title }}</option>
+                                <option value="{{ $category->id }}" @if(isset($filter['categories']) && in_array($category->id, $filter['categories'])) selected @endif>{{ $category->title }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group col-6">
                         <label for="">Поиск</label>
-                        <input class="form-control" value="{{ $search ?? '' }}" name="search">
+                        <input class="form-control" value="{{ $filter['search'] ?? '' }}" name="search">
                     </div>
                     <div class="form-group col-12">
                         <input class="btn btn-primary" type="submit" value="Найти">
@@ -32,6 +32,15 @@
             @endforelse
         </div>
 
-        {{ $articles->appends(['categories' => $selected_categories, 'search' => $search])->links() }}
+        @php
+            $append = [];
+            if(isset($filter['categories'])) {
+                $append['categories'] = $filter['categories'];
+            }
+            if(isset($filter['search'])) {
+                $append['search'] = $filter['search'];
+            }
+        @endphp
+        {{ $articles->appends($append)->links() }}
     </div>
 @endsection

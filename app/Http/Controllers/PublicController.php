@@ -12,32 +12,36 @@ class PublicController extends Controller
 {
     protected $paginate = 3;
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
-        $articles = Article::select();
+        $filter = [];
 
         if($request->has('categories')) {
-            $articles->whereHas('categories', function($q) use($request){
-                $q->whereIn('id', $request->get('categories'));
-            });
+            if(is_array($request->get('categories'))) {
+                $filter['categories'] = $request->get('categories');
+            } else {
+                $filter['categories'][] = $request->get('categories');
+            }
         }
 
-        if($request->has('search')) {
-            $articles->where(function($q) use($request) {
-                $q->where('title', 'like', '%'. $request->get('search'). '%');
-                $q->orWhere('description', 'like', '%'. $request->get('search'). '%');
-            });
+        if($request->has('search') && is_string($request->get('search'))) {
+            $filter['search'] = $request->get('search');
         }
-
-        $articles->where('published', 1)->orderBy('created_at', 'desc');
 
         return view('index', [
-            'articles' => $articles->paginate($this->paginate),
-            'selected_categories' => $request->get('categories'),
-            'search' => $request->get('search')
+            'articles' => Article::filter($filter)->orderBy('created_at', 'desc')->paginate($this->paginate),
+            'filter' => $filter,
         ]);
     }
 
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function category($slug) {
         $category = Category::where('slug', $slug)->firstOrFail();
         $articles = Article::select();
@@ -52,6 +56,10 @@ class PublicController extends Controller
         ]);
     }
 
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function article($slug) {
         return view('article', [
             'article' => Article::where('slug', $slug)->firstOrFail()

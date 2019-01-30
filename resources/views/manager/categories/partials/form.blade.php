@@ -1,7 +1,10 @@
 <div class="row">
     <div class="col-md-6 mb-4">
         <label for="">Название</label>
-        <input type="text" class="form-control" name="title" placeholder="" value="{{ isset($category->title) ? $category->title : '' }}" required autocomplete="off">
+        @if($errors->has('title'))
+            <div class="error small text-danger">{{ $errors->first('title') }}</div>
+        @endif
+        <input type="text" class="form-control" name="title" placeholder="" value="{{ isset($category->title) ? $category->title : '' }}" autocomplete="off">
     </div>
     <div class="col-md-6 mb-4">
         <label for="">Статус</label>

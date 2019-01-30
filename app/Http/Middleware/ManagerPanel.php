@@ -16,7 +16,7 @@ class ManagerPanel
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->role->name == 'manager') {
+        if(Auth::check() && Auth::user()->isManager()) {
             return $next($request);
         }
 
