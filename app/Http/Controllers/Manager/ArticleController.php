@@ -57,7 +57,7 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(ArticleRequest $article)
+    public function show(Article $article)
     {
         //
     }
@@ -68,7 +68,7 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(ArticleRequest $article)
+    public function edit(Article $article)
     {
         return view('manager.articles.edit', [
           'article'    => $article,
